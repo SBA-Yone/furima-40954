@@ -22,7 +22,6 @@
 
 | Column                | Type       | Options     |
 | --------------------- | ---------- | ----------- |
-| image                 | text       | null: false |
 | name                  | string     | null: false |
 | info                  | text       | null: false |
 | category_id           | integer    | null: false |
@@ -43,7 +42,6 @@
 
 | Column         | Type       | Options     |
 | -------------- | ---------- | ----------- |
-| customer_token | text       | null: false |
 | item           | references | null: false, foreign_key: true |
 | user           | references | null: false, foreign_key: true |
 
@@ -62,10 +60,10 @@
 | ------------- | ---------- | ----------- |
 | postal_code   | string     | null: false |
 | prefecture_id | integer    | null: false |
-| city          | text       | null: false |
-| addresses     | text       | null: false |
-| building_name | text       | null: false |
-| phone_number  | string       | null: false |
+| city          | string     | null: false |
+| address       | string     | null: false |
+| building_name | string     |             |
+| phone_number  | string     | null: false |
 | purchase      | references | null: false, foreign_key: true |
 
 
