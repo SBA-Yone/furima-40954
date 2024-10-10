@@ -57,14 +57,21 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is too long (maximum is 128 characters)')
       end
-      it 'passwordが英字と数字の両方を含まないと登録できない' do
+      it 'passwordが英字だけでは登録できない' do
         @user.password = 'abcdef'
         @user.password_confirmation = 'abcdef'
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is invalid. Include both letters and numbers')
-
+      end
+      it 'passwordが数字だけでは登録できない' do
         @user.password = '123456'
         @user.password_confirmation = '123456'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password is invalid. Include both letters and numbers')
+      end
+      it 'passwordが全角文字では登録できない' do
+        @user.password = '１２３４５６'
+        @user.password_confirmation = '１２３４５６'
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is invalid. Include both letters and numbers')
       end
@@ -105,7 +112,7 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include('First name kana is invalid. Input full-width katakana characters')
       end
-      it 'nicknameが空では登録できない' do
+      it 'birth dateが空だと登録できない' do
         @user.birth_date = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Birth date can't be blank")
