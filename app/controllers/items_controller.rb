@@ -3,6 +3,9 @@ class ItemsController < ApplicationController
 
   def new
     @item = Item.new
+
+  def create
+  end
     
   end
 end
