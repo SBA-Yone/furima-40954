@@ -5,9 +5,8 @@ class Item < ApplicationRecord
   belongs_to :shipping_fee
   belongs_to :prefecture
   belongs_to :scheduled_delivery
-
-
-  has_many :items
+  
+  belongs_to :user
   has_one_attached :image
 
   validates :name, presence: true
