@@ -9,7 +9,6 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
 
-  validates :user_id, presence: true
   validates :image, presence: true
   validates :name, presence: true
   validates :info, presence: true

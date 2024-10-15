@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe Item, type: :model do
   before do
     @item = FactoryBot.build(:item)
-    @item.user = FactoryBot.create(:user)
   end
 
   describe '商品出品機能' do
@@ -72,6 +71,11 @@ RSpec.describe Item, type: :model do
         @item.scheduled_delivery_id = 0
         @item.valid?
         expect(@item.errors.full_messages).to include("Scheduled delivery can't be blank")
+      end
+      it 'userが紐づいていない場合は登録できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("User must exist")
       end
     end
   end
