@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_item, only: [:show, :edit, :update]
-  before_action :check_item_owner, only: [:edit, :update]
+  before_action :set_item, only: [:show, :edit, :update , :destroy]
+  before_action :check_item_owner, only: [:edit, :update, :destroy]
 
   def new
     @item = Item.new
@@ -33,6 +33,12 @@ class ItemsController < ApplicationController
       render :edit, status: :unprocessable_entity
     end
   end
+
+  def destroy
+   @item.destroy
+   redirect_to root_path
+  end
+
 
   private
 
