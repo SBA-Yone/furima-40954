@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe PurchaseDeliveryAddress, type: :model do
   before do
-    @purchase_delivery_address = FactoryBot.build(:purchase_delivery_address)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item, user:)
+    @purchase_delivery_address = FactoryBot.build(:purchase_delivery_address, user_id: user.id, item_id: item.id)
   end
 
   describe '配送先情報の登録' do
@@ -76,6 +78,18 @@ RSpec.describe PurchaseDeliveryAddress, type: :model do
         @purchase_delivery_address.token = nil
         @purchase_delivery_address.valid?
         expect(@purchase_delivery_address.errors.full_messages).to include("Token can't be blank")
+      end
+
+      it 'user_idが空では登録できない' do
+        @purchase_delivery_address.user_id = nil
+        @purchase_delivery_address.valid?
+        expect(@purchase_delivery_address.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'item_idが空では登録できない' do
+        @purchase_delivery_address.item_id = nil
+        @purchase_delivery_address.valid?
+        expect(@purchase_delivery_address.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
